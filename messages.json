@@ -1,0 +1,10 @@
+{
+    "system":{
+        "Welcome":"Welcome here",
+        "Leave":"Just left us",
+        "Kick":"Was kicked from this server",
+        "Report":"Was report"
+    },
+    "custom" : {
+    }
+}   
