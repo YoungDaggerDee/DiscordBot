@@ -3,8 +3,16 @@
         "Welcome":"Welcome here",
         "Leave":"Just left us",
         "Kick":"Was kicked from this server",
-        "Report":"Was report"
+        "Report":"Was report",
+        "Perms":"You don't have permission for this command"
     },
-    "custom" : {
+    "usage" : {
+        "kick":"Please use !kick <player> <reason>",
+        "ban":"Please use !ban <player> <reason>",
+        "report":"Please use !report <player> <reason>",
+        "clear":"Please use !clear <index>"
+    },
+    "erros":{
+        "bot":"You can't interact with bot!"
     }
 }   

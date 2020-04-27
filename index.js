@@ -2,7 +2,7 @@
 const emoji = require('./emoji.json')
 const Discord = require("discord.js")
 const config = require('./config.json')
-const message = require('./messages.json')
+const msgs  = require('./messages.json')
 
 //DISCORD PACKAGE
 const bot = new Discord.Client()
@@ -43,13 +43,13 @@ client.on('message', message => {
       return
     }
     if(!message.member._roles.includes(adminToken)){
-      message.reply("Na tohle nemas prava")
+      message.reply(msgs.system.Perms)
       return
     }
     const args = message.content.split(' ').slice(1);
     const kickReason = args.slice(1).join(' '); 
     if(!kickReason){
-      message.reply("Prosim pouzij /kick <hrac> <duvod>")
+      message.reply(msgs.usage.kick)
       return
     }
     const user = message.mentions.users.first();
@@ -82,7 +82,7 @@ client.on('message', message => {
         message.reply("That user isn't in this guild!");
       }
     } else {
-      message.reply("You didn't mention the user to kick!");
+      message.reply(msgs.usage.kick);
     }
   }
   //BAN
@@ -93,13 +93,13 @@ client.on('message', message => {
       return
     }
     if(!message.member._roles.includes(adminToken)){
-      message.reply("Na tohle nemas prava")
+      message.reply(msgs.system.Perms)
       return
     }
     const args = message.content.split(' ').slice(1);
     const banReason = args.slice(1).join(' '); 
     if(!banReason){
-      message.reply("Prosim pouzij /ban <hrac> <duvod>")
+      message.reply(msgs.usage.ban)
       return
     }
     const user = message.mentions.users.first();
@@ -117,7 +117,7 @@ client.on('message', message => {
             const exampleEmbed = new Discord.MessageEmbed()
 	.setColor('#0099ff')
 	.setTitle('Ban')
-	.setDescription("Hrac byl uspense zabanovan")
+	.setDescription("Uspense zabanovany hrac")
 	.addFields(
     { name: "**Hrac**",value: user.username+"#"+user.discriminator},
     { name: "**Duvod**", value: banReason}
@@ -134,7 +134,7 @@ client.on('message', message => {
         message.reply("That user isn't in this guild!");
       }
     } else {
-      message.reply("You didn't mention the user to ban!");
+      message.reply(msgs.usage.ban);
     }
   }
   //REPORT
@@ -142,7 +142,7 @@ client.on('message', message => {
     const args = message.content.split(' ').slice(1);
     const reportReason = args.slice(1).join(' '); 
     if(!reportReason){
-      message.reply("Prosim pouzij /report <hrac> <duvod>")
+      message.reply(msgs.usage.report)
       return
     }
 
@@ -161,7 +161,7 @@ client.on('message', message => {
 	.setDescription("Hrac byl uspense nahlasen")
 	.addFields(
     { name: "**Hrac**",value: user.username+"#"+user.discriminator},
-    { name: "**Duvod**", value: reportReason}
+    { name: "**Duvod**", value: reportReason},
 	)
 	.setTimestamp()
 
@@ -171,12 +171,51 @@ client.on('message', message => {
         message.reply("Hrac nebyl nalezen!");
       }
     } else {
-      message.reply("You didn't mention the user to report!");
+      message.reply(msgs.usage.report);
     }
   }
+  //REMOVE REPORT
+  if (message.content.startsWith('!clear')) {
+    const args = message.content.split(' ').slice(1);
+    
+    if(!args){
+      message.reply(msgs.usage.clear)
+      return
+    }
+    let intIndex = parseInt(args)
+    const int2 = intIndex+1
+    if(intIndex%2!=0){
+      message.reply(msgs.usage.clear)
+      return
+    }
+    if(intIndex >= report.length){
+      message.reply(msgs.usage.clear)
+      return
+    }
+        message.delete()
+
+        const exampleEmbed = new Discord.MessageEmbed()
+	.setColor('#0099ff')
+	.setTitle('Report')
+	.setDescription("Report byl smazan!")
+	.addFields(
+    { name: "**Hrac**",value: report[intIndex]},
+    { name: "**Duvod**",value: report[int2]}
+	)
+  .setTimestamp()
+  console.log(report[report.length-1])
+  adlog.push(message.author.username+"#"+message.author.discriminator+" REMOVED REPORT:")
+  adlog.push(report[intIndex] +" "+report[int2])
+  console.log("CLEARED: ["+report[intIndex] +"for: "+report[int2]+"]")
+  message.channel.send(exampleEmbed)
+  report.splice(intIndex,2)
+
+  }
+
+  //LOG REPORTY
   if(message.content.startsWith('!log')) {
     if(!message.member._roles.includes(adminToken)){
-      message.reply("Na tohle nemas prava")
+      message.reply(msgs.system.Perms)
       return
     }
 
@@ -190,7 +229,8 @@ client.on('message', message => {
     .setTitle('**Report Log**')
     .setThumbnail()
     .addFields(
-        {name:"**Reportovani hraci**", value: report} 
+        {name:"**Reportovani hraci**", value: report}, 
+        {name:"velikost pole",value :report.length}    
     )
     .setTimestamp()
   
@@ -203,7 +243,7 @@ client.on('message', message => {
       return
     }
     if(!message.member._roles.includes(adminToken)){
-      message.reply("Na tohle nemas prava")
+      message.reply(msgs.system.Perms)
       return
     }
     let bany
@@ -234,7 +274,7 @@ client.on('message', message => {
       return
     }
     if(!message.member._roles.includes(adminToken)){
-      message.reply("Na tohle nemas prava")
+      message.reply(msgs.system.Perms)
       return
     }
     //CHECK IF THERE ARE ANY BANNS OR KICKS
