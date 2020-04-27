@@ -1,6 +1,6 @@
 {
     "bot-name":"bot",
-    "version":"1.0.2",
+    "version":"1.0.3",
     "status":"beta",
     "key": "NjMzOTI5ODcwNjU2NjY3Njc4.XqXPLQ.4TxS52XyR9L2mxmq422jwXIbRJI",
     "adminToken": "704363882348806174",
@@ -8,6 +8,10 @@
         "kick",
         "ban",
         "report",
-        "adminlog"
+        "adminlog",
+        "serverlog",
+        "adminlog",
+        "log",
+        "clear"
     ]
 }
