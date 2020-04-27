@@ -174,7 +174,7 @@ client.on('message', message => {
       message.reply("You didn't mention the user to report!");
     }
   }
-  if(message.content.startsWith('!list')) {
+  if(message.content.startsWith('!log')) {
     if(!message.member._roles.includes(adminToken)){
       message.reply("Na tohle nemas prava")
       return
@@ -182,12 +182,12 @@ client.on('message', message => {
 
 
     if(report.length == 0){
-      message.channel.send("Zadny hrad nebyl reportovan")
+      message.channel.send("Zadne aktivni reporty")
       return
     }
     const exampleEmbed = new Discord.MessageEmbed()
     .setColor('#0099ff')
-    .setTitle('**Report List**')
+    .setTitle('**Report Log**')
     .setThumbnail()
     .addFields(
         {name:"**Reportovani hraci**", value: report} 
@@ -208,17 +208,20 @@ client.on('message', message => {
     }
     let bany
     let kicky
+    let reporty 
     //CHECK IF THERE ARE ANY BANNS OR KICKS
 
     if(banns.length == 0){bany = "Zatim nebyli udeleny bany"}else{bany = banns}
-    if(kicks.length == 0){kicky = "Zatim nebyli udeleny zadne kicky"}else{kicky = kicks}
+    if(kicks.length == 0){kicky = "Zatim nebyli udeleny  kicky"}else{kicky = kicks}
+    if(report.length==0){reporty = "Zatim nebyli udeleny reporty"}else{reporty = report}
     const exampleEmbed = new Discord.MessageEmbed()
     .setColor('#0099ff')
     .setTitle('**Admin LOG**')
     .setThumbnail()
     .addFields(
         {name:"**Bany**", value: bany},
-        {name:"**Kicky**",value: kicky}
+        {name:"**Kicky**",value: kicky},
+        {name:"**Reporty**",value: reporty}
     )
     .setTimestamp()
   
