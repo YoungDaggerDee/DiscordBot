@@ -3,6 +3,7 @@ const emoji = require('./emoji.json')
 const Discord = require("discord.js")
 const config = require('./config.json')
 const message = require('./messages.json')
+
 //DISCORD PACKAGE
 const bot = new Discord.Client()
 const client = new Discord.Client();
