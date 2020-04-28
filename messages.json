@@ -4,7 +4,8 @@
         "Leave":"Just left us",
         "Kick":"Was kicked from this server",
         "Report":"Was report",
-        "Perms":"You don't have permission for this command"
+        "Perms":"You don't have permission for this command",
+        "Error":"Unexpected error!"
     },
     "usage" : {
         "kick":"Please use !kick <player> <reason>",
@@ -14,5 +15,10 @@
     },
     "erros":{
         "bot":"You can't interact with bot!"
+    },
+    "room":{
+        "bot":"Plese use this command in 'Commands Room",
+        "admin":"Please use this command in 'Admin Room'",
+        "report":"Please use this command in 'Report room'"
     }
 }   

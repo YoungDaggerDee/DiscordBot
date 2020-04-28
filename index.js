@@ -38,7 +38,7 @@ client.on('message', message => {
   if (!message.guild) return;
   //KICK
   if (message.content.startsWith('!kick')) {
-    if(message.channel.id != "646099774797250575"){
+    if(message.channel.id != config.rooms.admin){
       message.delete()
       return
     }
@@ -75,11 +75,11 @@ client.on('message', message => {
             message.channel.send(exampleEmbed);
                     })
           .catch(err => {
-            message.reply('I was unable to kick the member');
+            message.reply(msgs.system.Error);
             console.error(err);
           });
       } else {
-        message.reply("That user isn't in this guild!");
+        message.reply(msgs.system.Error);
       }
     } else {
       message.reply(msgs.usage.kick);
@@ -88,7 +88,7 @@ client.on('message', message => {
   //BAN
   if (message.content.startsWith('!ban')) {
     //CHECK IF USER HAVE ROLE
-    if(message.channel.id != "646099774797250575"){
+    if(message.channel.id != config.rooms.admin){
       message.delete()
       return
     }
@@ -127,11 +127,11 @@ client.on('message', message => {
   message.channel.send(exampleEmbed);
           })
           .catch(err => {
-            message.reply('I was unable to ban the member');
+            message.reply(msgs.system.Error);
             console.error(err);
           });
       } else {
-        message.reply("That user isn't in this guild!");
+        message.reply(msgs.system.Error);
       }
     } else {
       message.reply(msgs.usage.ban);
@@ -141,11 +141,15 @@ client.on('message', message => {
   if (message.content.startsWith('!report')) {
     const args = message.content.split(' ').slice(1);
     const reportReason = args.slice(1).join(' '); 
+    //CHECK FOR REPORT ROOM
+    if(message.channel.id != config.rooms.report){
+      message.delete()
+      return
+    }
     if(!reportReason){
       message.reply(msgs.usage.report)
       return
     }
-
     const user = message.mentions.users.first();
     if (user) {
       const member = message.guild.member(user);
@@ -154,6 +158,7 @@ client.on('message', message => {
         console.log("REPORTED: ["+user.username+"#"+user.discriminator+" for:"+reportReason+"]")
         report.push(user.username +"#"+user.discriminator)
         report.push(reportReason)
+
 
         const exampleEmbed = new Discord.MessageEmbed()
 	.setColor('#0099ff')
@@ -165,7 +170,7 @@ client.on('message', message => {
 	)
 	.setTimestamp()
 
-  message.channel.send(exampleEmbed);
+  message.author.send(exampleEmbed);
 
       } else {
         message.reply("Hrac nebyl nalezen!");
@@ -230,7 +235,6 @@ client.on('message', message => {
     .setThumbnail()
     .addFields(
         {name:"**Reportovani hraci**", value: report}, 
-        {name:"velikost pole",value :report.length}    
     )
     .setTimestamp()
   
@@ -238,7 +242,7 @@ client.on('message', message => {
     
   }
   if(message.content.startsWith('!adminlog')) {
-    if(message.channel.id != "646099774797250575"){
+    if(message.channel.id != config.rooms.admin){
       message.delete()
       return
     }
@@ -269,7 +273,7 @@ client.on('message', message => {
     
   }
   if(message.content.startsWith('!serverlog')) {
-    if(message.channel.id != "646099774797250575"){
+    if(message.channel.id != config.rooms.admin){
       message.delete()
       return
     }
