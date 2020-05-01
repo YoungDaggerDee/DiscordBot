@@ -13,14 +13,26 @@
         "ban":"Please use !ban <user> <reason>",
         "report":"Please use !report <user> <reason>",
         "clear":"Please use !clear <index>",
-        "notice":"Please use !n <user> <message-type>"
+        "notice":"Please use !n <user> <message-type>",
+        "cc":"Please use !cc <number>",
+        "ann":"Please use !ann |<header>| <text>"
     },
-    "erros":{
-        "bot":"You can't interact with bot!"
+    "errors":{
+        "bot":"You can't interact with bot!",
+        "cc": {
+            "more":"You can't delete more than 300 messages at once!",
+            "less":"You can't delete less than 1 messages!"
+        },
+        "channel":"Wrong channel!"
     },
     "room":{
         "bot":"Plese use this command in 'Commands Room",
         "admin":"Please use this command in 'Admin Room'",
         "report":"Please use this command in 'Report room'"
+    },
+    "dm":{
+        "kick":"You have been kicked on ",
+        "ban":"You have been banned on ",
+        "mute":"You have been muted on "
     }
 }   
