@@ -31,6 +31,28 @@ client.on('message', msg => {
   if (msg.content === '!emoji'){
       msg.reply(emoji[Math.floor(Math.random()*emoji.length)])
   }
+  //RANDOM HENTAI COMMAND
+  if(msg.content.startsWith("!hentai")){
+    if(msg.channel.id != "704731841047035904"){
+      msg.delete()
+      return
+    }
+    console.log(msg)
+    let random = Math.floor(Math.random() * 700 ) +1
+    const exampleEmbed = new Discord.MessageEmbed()
+    .setColor('#0099ff')
+    .setTitle('Hentai')
+    .setDescription("preji ti hezku honbu")
+    .setImage("https://disco.scrolller.com/media/e"+random+".jpg")
+    .setTimestamp()
+    setInterval(()=>{
+      let random = Math.floor(Math.random() * 700 ) +1
+      const exampleEmbed = new Discord.MessageEmbed()
+      .setColor('#0099ff')
+      .setImage("https://disco.scrolller.com/media/e"+random+".jpg")
+      msg.channel.send(exampleEmbed)
+    },1000)
+  }
 });
 
 //ADMIN COMMANDS
@@ -216,7 +238,6 @@ client.on('message', message => {
   report.splice(intIndex,2)
 
   }
-
   //LOG REPORTY
   if(message.content.startsWith('!log')) {
     if(!message.member._roles.includes(adminToken)){
