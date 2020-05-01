@@ -1,8 +1,8 @@
 //IMPORTS
-const emoji = require('./emoji.json')
+const emoji = require('./json/emoji.json')
 const Discord = require("discord.js")
-const config = require('./config.json')
-const msgs  = require('./messages.json')
+const config = require('./json/config.json')
+const msgs  = require('./json/messages.json')
 
 //DISCORD PACKAGE
 const bot = new Discord.Client()
@@ -16,7 +16,8 @@ const banns = []
 const kicks = []
 const adlog = []
 const botName = config["bot-name"]
-const adminToken = config.adminToken
+const adminToken = config.tokens.admin
+const modToken = config.tokens.mod
 client.on('ready', () => {
     for(let i=0;i<10;i++){console.log()}
     console.log("You're running Bot version: ["+config.version+"]")
@@ -107,7 +108,18 @@ client.on('message', message => {
       message.reply(msgs.usage.kick);
     }
   }
-  //BAN
+  //NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE 
+  //NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE 
+  //NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE 
+  //NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE 
+
+  if (message.content.startsWith('!n')) {
+    dm(message)
+  }
+  //BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN 
+  //BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN 
+  //BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN 
+  //BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN 
   if (message.content.startsWith('!ban')) {
     //CHECK IF USER HAVE ROLE
     if(message.channel.id != config.rooms.admin){
@@ -159,8 +171,13 @@ client.on('message', message => {
       message.reply(msgs.usage.ban);
     }
   }
-  //REPORT
+  //REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT 
+  //REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT 
+  //REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT 
+  //REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT 
+
   if (message.content.startsWith('!report')) {
+    message.delete()
     const args = message.content.split(' ').slice(1);
     const reportReason = args.slice(1).join(' '); 
     //CHECK FOR REPORT ROOM
@@ -169,7 +186,7 @@ client.on('message', message => {
       return
     }
     if(!reportReason){
-      message.reply(msgs.usage.report)
+      message.author.send(msgs.usage.report)
       return
     }
     const user = message.mentions.users.first();
@@ -191,17 +208,19 @@ client.on('message', message => {
     { name: "**Duvod**", value: reportReason},
 	)
 	.setTimestamp()
-
   message.author.send(exampleEmbed);
 
       } else {
-        message.reply("Hrac nebyl nalezen!");
+        message.author.send(msgs.system.NotFound)
       }
     } else {
-      message.reply(msgs.usage.report);
+      message.author.send(msgs.usage.report);
     }
   }
-  //REMOVE REPORT
+  //REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT
+  //REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT
+  //REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT
+  //REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT
   if (message.content.startsWith('!clear')) {
     const args = message.content.split(' ').slice(1);
     
@@ -238,13 +257,21 @@ client.on('message', message => {
   report.splice(intIndex,2)
 
   }
-  //LOG REPORTY
+  //LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY 
+  //LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY 
+  //LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY 
+  //LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY 
   if(message.content.startsWith('!log')) {
+    let tmpBoolean = false
     if(!message.member._roles.includes(adminToken)){
-      message.reply(msgs.system.Perms)
-      return
+      tmpBoolean = true
     }
-
+    if(!message.member._roles.includes(modToken)){
+      if(tmpBoolean){
+        message.reply(msgs.system.Perms)
+        return
+      }
+    }
 
     if(report.length == 0){
       message.channel.send("Zadne aktivni reporty")
@@ -262,6 +289,11 @@ client.on('message', message => {
   message.channel.send(exampleEmbed);
     
   }
+  //ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG 
+  //ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG 
+  //ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG 
+  //ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG 
+
   if(message.content.startsWith('!adminlog')) {
     if(message.channel.id != config.rooms.admin){
       message.delete()
@@ -317,6 +349,44 @@ client.on('message', message => {
   }
 });
 
+//FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT) 
+//FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT) 
+//FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT) 
+//FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT) 
 
+function dm(message){
+  let tmpMessage
+  if(message.channel.id != config.rooms.admin){
+    message.delete()
+    return
+  }
+  if(!message.member._roles.includes(adminToken)){
+    message.reply(msgs.system.Perms)
+    return
+  }
+  const args = message.content.split(' ').slice(1);
+  const nMessage = args.slice(1).join(' '); 
+  console.log(args)
+  if(!nMessage){
+    message.reply(msgs.usage.notice)
+    return
+  }
+  const user = message.mentions.users.first();
+  if (user) {
+    const member = message.guild.member(user);
+    if (member) {
+      message.channel.send(nMessage)
+      user.send(nMessage)
+    } else {
+      message.reply(msgs.system.Error);
+    }
+  } else {
+    message.reply(msgs.usage.notice);
+  }
+}
+//CHECK IF BOT TAGGED CHECK IF BOT TAGGED CHECK IF BOT TAGGED CHECK IF BOT TAGGED CHECK IF BOT TAGGED CHECK IF BOT TAGGED CHECK IF BOT TAGGED 
+//CHECK IF BOT TAGGED CHECK IF BOT TAGGED CHECK IF BOT TAGGED CHECK IF BOT TAGGED CHECK IF BOT TAGGED CHECK IF BOT TAGGED CHECK IF BOT TAGGED 
+//CHECK IF BOT TAGGED CHECK IF BOT TAGGED CHECK IF BOT TAGGED CHECK IF BOT TAGGED CHECK IF BOT TAGGED CHECK IF BOT TAGGED CHECK IF BOT TAGGED 
+//CHECK IF BOT TAGGED CHECK IF BOT TAGGED CHECK IF BOT TAGGED CHECK IF BOT TAGGED CHECK IF BOT TAGGED CHECK IF BOT TAGGED CHECK IF BOT TAGGED 
 
 client.login(config.key)

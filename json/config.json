@@ -1,9 +1,14 @@
 {
+    "botId": "633929870656667678",
+    "servername":"server",
     "bot-name":"bot",
     "version":"1.0.4",
     "status":"beta",
     "key": "NjMzOTI5ODcwNjU2NjY3Njc4.XqXPLQ.4TxS52XyR9L2mxmq422jwXIbRJI",
-    "adminToken": "704363882348806174",
+    "tokens": {
+        "admin": "704363882348806174",
+        "mod": "705844695745691719"
+    },
     "functions": [
         "kick",
         "ban",

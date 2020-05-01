@@ -5,13 +5,15 @@
         "Kick":"Was kicked from this server",
         "Report":"Was report",
         "Perms":"You don't have permission for this command",
-        "Error":"Unexpected error!"
+        "Error":"Unexpected error!",
+        "NotFound":"Player wasn't found"
     },
     "usage" : {
-        "kick":"Please use !kick <player> <reason>",
-        "ban":"Please use !ban <player> <reason>",
-        "report":"Please use !report <player> <reason>",
-        "clear":"Please use !clear <index>"
+        "kick":"Please use !kick <user> <reason>",
+        "ban":"Please use !ban <user> <reason>",
+        "report":"Please use !report <user> <reason>",
+        "clear":"Please use !clear <index>",
+        "notice":"Please use !n <user> <message-type>"
     },
     "erros":{
         "bot":"You can't interact with bot!"
