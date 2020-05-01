@@ -1,8 +1,8 @@
 //IMPORTS
-const emoji = require('./emoji.json')
+const emoji = require('./json/emoji.json')
 const Discord = require("discord.js")
-const config = require('./config.json')
-const msgs  = require('./messages.json')
+const config = require('./json/config.json')
+const msgs  = require('./json/messages.json')
 
 //DISCORD PACKAGE
 const bot = new Discord.Client()
@@ -16,8 +16,13 @@ const banns = []
 const kicks = []
 const adlog = []
 const botName = config["bot-name"]
+<<<<<<< HEAD
 const adminToken = config.adminToken
 
+=======
+const adminToken = config.tokens.admin
+const modToken = config.tokens.mod
+>>>>>>> fd5a339648343858a1281be4943b59acce1214eb
 client.on('ready', () => {
     for(let i=0;i<10;i++){console.log()}
     console.log("You're running Bot version: ["+config.version+"]")
@@ -33,25 +38,75 @@ client.on('message', msg => {
   if (msg.content === '!emoji'){
       msg.reply(emoji[Math.floor(Math.random()*emoji.length)])
   }
+  //RANDOM HENTAI COMMAND
+  if(msg.content.startsWith("!hentai")){
+    if(msg.channel.id != "704731841047035904"){
+      msg.delete()
+      return
+    }
+    console.log(msg)
+    let random = Math.floor(Math.random() * 700 ) +1
+    const exampleEmbed = new Discord.MessageEmbed()
+    .setColor('#0099ff')
+    .setTitle('Hentai')
+    .setDescription("preji ti hezku honbu")
+    .setImage("https://disco.scrolller.com/media/e"+random+".jpg")
+    .setTimestamp()
+    setInterval(()=>{
+      let random = Math.floor(Math.random() * 700 ) +1
+      const exampleEmbed = new Discord.MessageEmbed()
+      .setColor('#0099ff')
+      .setImage("https://disco.scrolller.com/media/e"+random+".jpg")
+      msg.channel.send(exampleEmbed)
+    },1000)
+  }
 });
 
 //ADMIN COMMANDS
 client.on('message', message => {
   if (!message.guild) return;
-  //KICK
+  
+  //CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT 
+  //CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT 
+  //CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT 
+  //CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT 
+  if(message.content.startsWith("!cc")){
+    const args = message.content.split(' ').slice(1); 
+    const amount = args.join(' '); 
+
+    if (!amount) return message.author.send(msgs.usage.cc); 
+    if (isNaN(amount)) return message.author.send(msgs.usage.cc); 
+
+    if (amount > 300) return message.author.send(msgs.errors.cc.more); 
+    if (amount < 1) return message.author.send(msgs.errors.cc.less);
+    async function remove(){
+    await message.channel.messages.fetch({ limit: amount }).then(messages => {
+    message.channel.bulkDelete(messages 
+    )});
+    }
+    remove()
+    message.delete()
+    
+}
+  //KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK 
+  //KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK 
+  //KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK 
+  //KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK 
   if (message.content.startsWith('!kick')) {
     if(message.channel.id != config.rooms.admin){
       message.delete()
       return
     }
     if(!message.member._roles.includes(adminToken)){
-      message.reply(msgs.system.Perms)
+      message.author.send(msgs.system.Perms)
+      message.delete()
       return
     }
     const args = message.content.split(' ').slice(1);
     const kickReason = args.slice(1).join(' '); 
     if(!kickReason){
-      message.reply(msgs.usage.kick)
+      message.author.send(msgs.usage.kick)
+      message.delete()
       return
     }
     const user = message.mentions.users.first();
@@ -77,17 +132,33 @@ client.on('message', message => {
             message.channel.send(exampleEmbed);
                     })
           .catch(err => {
-            message.reply(msgs.system.Error);
+            message.author.send(msgs.system.Error);
+            message.delete()
             console.error(err);
           });
       } else {
-        message.reply(msgs.system.Error);
+        message.author.send(msgs.system.Error);
+        message.delete()
+        return
       }
     } else {
-      message.reply(msgs.usage.kick);
+      message.author.send(msgs.usage.kick);
+      message.delete()
+      return
     }
   }
-  //BAN
+  //NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE 
+  //NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE 
+  //NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE 
+  //NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE 
+
+  if (message.content.startsWith('!n')) {
+    dm(message, "ban")
+  }
+  //BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN 
+  //BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN 
+  //BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN 
+  //BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN 
   if (message.content.startsWith('!ban')) {
     //CHECK IF USER HAVE ROLE
     if(message.channel.id != config.rooms.admin){
@@ -95,19 +166,22 @@ client.on('message', message => {
       return
     }
     if(!message.member._roles.includes(adminToken)){
-      message.reply(msgs.system.Perms)
+      message.author.send(msgs.system.Perms)
+      message.delete()
       return
     }
     const args = message.content.split(' ').slice(1);
     const banReason = args.slice(1).join(' '); 
     if(!banReason){
-      message.reply(msgs.usage.ban)
+      message.delete()
+      message.author.send(msgs.usage.ban)
       return
     }
     const user = message.mentions.users.first();
     if (user) {
       const member = message.guild.member(user);
       if (member) {
+        dm(message, "ban")
         adlog.push(message.author.username+"#"+message.author.discriminator+" BANNED "+user.username+"#"+user.discriminator)
         banns.push(user.username+"#"+user.discriminator)
         banns.push(banReason)
@@ -129,18 +203,25 @@ client.on('message', message => {
   message.channel.send(exampleEmbed);
           })
           .catch(err => {
-            message.reply(msgs.system.Error);
+            message.author.send(msgs.system.Error);
             console.error(err);
           });
       } else {
-        message.reply(msgs.system.Error);
+        message.author.send(msgs.system.Error);
+        message.delete()
       }
     } else {
-      message.reply(msgs.usage.ban);
+      message.author.send(msgs.usage.ban);
+      message.delete()
     }
   }
-  //REPORT
+  //REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT 
+  //REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT 
+  //REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT 
+  //REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT 
+
   if (message.content.startsWith('!report')) {
+    message.delete()
     const args = message.content.split(' ').slice(1);
     const reportReason = args.slice(1).join(' '); 
     //CHECK FOR REPORT ROOM
@@ -149,7 +230,7 @@ client.on('message', message => {
       return
     }
     if(!reportReason){
-      message.reply(msgs.usage.report)
+      message.author.send(msgs.usage.report)
       return
     }
     const user = message.mentions.users.first();
@@ -171,17 +252,23 @@ client.on('message', message => {
     { name: "**Duvod**", value: reportReason},
 	)
 	.setTimestamp()
-
   message.author.send(exampleEmbed);
 
       } else {
+<<<<<<< HEAD
         message.reply(msgs.usage.report);
+=======
+        message.author.send(msgs.system.NotFound)
+>>>>>>> fd5a339648343858a1281be4943b59acce1214eb
       }
     } else {
-      message.reply(msgs.usage.report);
+      message.author.send(msgs.usage.report);
     }
   }
-  //REMOVE REPORT
+  //REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT
+  //REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT
+  //REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT
+  //REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT
   if (message.content.startsWith('!clear')) {
     const args = message.content.split(' ').slice(1);
     
@@ -217,15 +304,26 @@ client.on('message', message => {
   message.channel.send(exampleEmbed)
   report.splice(intIndex,2)
   }
-
-  //LOG REPORTY
+  //LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY 
+  //LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY 
+  //LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY 
+  //LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY 
   if(message.content.startsWith('!log')) {
+    let tmpBoolean = false
     if(!message.member._roles.includes(adminToken)){
-      message.reply(msgs.system.Perms)
-      return
+      tmpBoolean = true
+    }
+    if(!message.member._roles.includes(modToken)){
+      if(tmpBoolean){
+        message.reply(msgs.system.Perms)
+        return
+      }
     }
 
+<<<<<<< HEAD
     let reportiky
+=======
+>>>>>>> fd5a339648343858a1281be4943b59acce1214eb
     if(report.length == 0){
       reportiky = msgs.system.NoneReport
     }else{
@@ -239,10 +337,46 @@ client.on('message', message => {
         {name:"**Reportovani hraci**", value: reportiky}, 
     )
     .setTimestamp()
-  
   message.channel.send(exampleEmbed);
-    
   }
+  //ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT  
+  //ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT  
+  //ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT  
+  //ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT  
+  if(message.content.startsWith('!ann')){
+    let tmpMessage
+    let control = 0
+    for(let i=0;i<message.content.length;i++){
+      if(message.content[i] === "|"){
+        control++
+      }
+    }
+    if(!message.member._roles.includes(adminToken)){
+      message.delete()
+      return message.author.send(msgs.system.Perms)
+    }
+    if(control != 2){
+      message.delete()
+      return message.author.send(msgs.usage.ann)
+    }
+    const args = message.content.split("|").slice(0)
+    const header = message.content.split("|")[1]
+    const text = message.content.split("|")[2]
+    if(!args){
+      return message.author.send(msgs.usage.ann)
+    }
+    const exampleEmbed = new Discord.MessageEmbed()
+    .setColor('#0099ff')
+    .setTitle('**'+header+'**')
+    .setDescription(text)
+    .setTimestamp()
+    message.channel.send(exampleEmbed);
+    message.delete()
+  }
+  //ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG 
+  //ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG 
+  //ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG 
+  //ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG 
   if(message.content.startsWith('!adminlog')) {
     if(message.channel.id != config.rooms.admin){
       message.delete()
@@ -298,6 +432,38 @@ client.on('message', message => {
   }
 });
 
-
+//FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT) 
+//FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT) 
+//FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT) 
+//FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT)FUNCTION NOTICE (ALERT) 
+function dm(message, type){
+  let tmpMessage
+  const args = message.content.split(' ').slice(1);
+  const nMessage = args.slice(1).join(' '); 
+  if(!nMessage){
+    message.reply(msgs.usage.notice)
+    return
+  }
+  if(type == "ban"){
+    tmpMessage = msgs.dm.ban + config.servername+"!"
+  }
+  else if(type == "kick"){
+    tmpMessage = msgs.dm.kick + config.servername+"!"
+  }
+  else if(type == "mute"){
+    tmpMessage = msgs.dm.mute + config.servername+"!"
+  }
+  const user = message.mentions.users.first();
+  if (user) {
+    const member = message.guild.member(user);
+    if (member) {
+      user.send(tmpMessage)
+    } else {
+      message.reply(msgs.system.Error);
+    }
+  } else {
+    message.reply(msgs.usage.notice);
+  }
+}
 
 client.login(config.key)
