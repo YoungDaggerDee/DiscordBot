@@ -17,10 +17,12 @@ const kicks = []
 const adlog = []
 const botName = config["bot-name"]
 const adminToken = config.adminToken
+
 client.on('ready', () => {
     for(let i=0;i<10;i++){console.log()}
     console.log("You're running Bot version: ["+config.version+"]")
     console.log(`Logged in as ${client.user.tag}!`)
+
 });
   //ON MESSAGE SENT
 client.on('message', msg => {
@@ -173,7 +175,7 @@ client.on('message', message => {
   message.author.send(exampleEmbed);
 
       } else {
-        message.reply("Hrac nebyl nalezen!");
+        message.reply(msgs.usage.report);
       }
     } else {
       message.reply(msgs.usage.report);
@@ -214,7 +216,6 @@ client.on('message', message => {
   console.log("CLEARED: ["+report[intIndex] +"for: "+report[int2]+"]")
   message.channel.send(exampleEmbed)
   report.splice(intIndex,2)
-
   }
 
   //LOG REPORTY
@@ -224,17 +225,18 @@ client.on('message', message => {
       return
     }
 
-
+    let reportiky
     if(report.length == 0){
-      message.channel.send("Zadne aktivni reporty")
-      return
+      reportiky = msgs.system.NoneReport
+    }else{
+      reportiky = report
     }
     const exampleEmbed = new Discord.MessageEmbed()
     .setColor('#0099ff')
     .setTitle('**Report Log**')
     .setThumbnail()
     .addFields(
-        {name:"**Reportovani hraci**", value: report}, 
+        {name:"**Reportovani hraci**", value: reportiky}, 
     )
     .setTimestamp()
   
@@ -254,10 +256,10 @@ client.on('message', message => {
     let kicky
     let reporty 
     //CHECK IF THERE ARE ANY BANNS OR KICKS
-
     if(banns.length == 0){bany = "Zatim nebyli udeleny bany"}else{bany = banns}
     if(kicks.length == 0){kicky = "Zatim nebyli udeleny  kicky"}else{kicky = kicks}
     if(report.length==0){reporty = "Zatim nebyli udeleny reporty"}else{reporty = report}
+    
     const exampleEmbed = new Discord.MessageEmbed()
     .setColor('#0099ff')
     .setTitle('**Admin LOG**')
