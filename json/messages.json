@@ -23,6 +23,11 @@
             "more":"You can't delete more than 300 messages at once!",
             "less":"You can't delete less than 1 messages!"
         },
+        "no":{
+            "banns":"No bannes yet!",
+            "kicks":"No kicks yet!",
+            "reports":"No reports yet!"
+        },
         "channel":"Wrong channel!"
     },
     "room":{
@@ -34,5 +39,8 @@
         "kick":"You have been kicked on ",
         "ban":"You have been banned on ",
         "mute":"You have been muted on "
+    },
+    "descriptions":{
+        "rmMessages":"Command !cc clear couple messages :)"
     }
 }   

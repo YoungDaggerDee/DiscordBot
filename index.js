@@ -4,7 +4,7 @@ const Discord = require("discord.js")
 const config = require('./json/config.json')
 const msgs  = require('./json/messages.json')
 
-//DISCORD PACKAGE
+//DISCORD PACKAGES
 const bot = new Discord.Client()
 const client = new Discord.Client();
 
@@ -16,16 +16,16 @@ const banns = []
 const kicks = []
 const adlog = []
 const botName = config["bot-name"]
-<<<<<<< HEAD
-const adminToken = config.adminToken
 
-=======
+//TOKENS
 const adminToken = config.tokens.admin
 const modToken = config.tokens.mod
->>>>>>> fd5a339648343858a1281be4943b59acce1214eb
+const highestAdminToken = config.tokens.powerAdmin
+const ownerToken = config.tokens.owner
+
 client.on('ready', () => {
     for(let i=0;i<10;i++){console.log()}
-    console.log("You're running Bot version: ["+config.version+"]")
+    console.log("You're running Bot version: ["+config.version+"] "+config.stage)
     console.log(`Logged in as ${client.user.tag}!`)
 
 });
@@ -55,7 +55,7 @@ client.on('message', msg => {
     setInterval(()=>{
       let random = Math.floor(Math.random() * 700 ) +1
       const exampleEmbed = new Discord.MessageEmbed()
-      .setColor('#0099ff')
+      .setColor('#32CD32')
       .setImage("https://disco.scrolller.com/media/e"+random+".jpg")
       msg.channel.send(exampleEmbed)
     },1000)
@@ -73,12 +73,58 @@ client.on('message', message => {
   if(message.content.startsWith("!cc")){
     const args = message.content.split(' ').slice(1); 
     const amount = args.join(' '); 
+    console.log(message.channel.name)
+    if(!message.member._roles.includes(adminToken)){
+      const exampleEmbed = new Discord.MessageEmbed()
+      .setColor('#FF0000')
+      .setTitle('**Permissions**')
+      .setDescription(msgs.system.Perms)
+      .setTimestamp()
+      message.author.send(exampleEmbed);
+      message.delete()
+      return
+    }
+    const exampleEmbed = new Discord.MessageEmbed()
+    .setColor('#FFD700')
+    .setTitle('**USAGE**')
+    .setDescription(msgs.usage.cc)
+    .setTimestamp()
+    message.delete()
+    if (!amount) {
+      message.delete()
+      return message.author.send(exampleEmbed)}
 
-    if (!amount) return message.author.send(msgs.usage.cc); 
-    if (isNaN(amount)) return message.author.send(msgs.usage.cc); 
+    if (isNaN(amount)) {
+      message.delete()
+      return message.author.send(exampleEmbed)
+    }
 
-    if (amount > 300) return message.author.send(msgs.errors.cc.more); 
-    if (amount < 1) return message.author.send(msgs.errors.cc.less);
+    if (amount > 300) {
+      const exampleEmbed = new Discord.MessageEmbed()
+      .setColor('#FFFFFF')
+      .setTitle('**ERROR**')
+      .setDescription(msgs.errors.cc.more)
+      .setTimestamp()
+      return message.author.send(exampleEmbed)
+    } 
+    if (amount < 1) {
+      const exampleEmbed = new Discord.MessageEmbed()
+      .setColor('#FFFFFF')
+      .setTitle('**ERROR**')
+      .setDescription(msgs.errors.cc.less)
+      .setTimestamp()
+      return message.author.send(exampleEmbed)}
+    const exampleEmbed1 = new Discord.MessageEmbed()
+    .setColor('#32CD32')
+    .setTitle('Message delete')
+    .setDescription(msgs.descriptions.rmMessages)
+    .addFields(
+      { name: "**Count**",value: "**{ "+amount+" }**"},
+      { name: "**Room**", value: "**{ "+message.channel.name+" }**"}
+    )
+    .setTimestamp()
+    adlog.push(message.author.username+"#"+message.author.discriminator+" **REMOVED** "+amount+" in "+message.channel.name)
+    message.author.send(exampleEmbed1)
     async function remove(){
     await message.channel.messages.fetch({ limit: amount }).then(messages => {
     message.channel.bulkDelete(messages 
@@ -98,14 +144,24 @@ client.on('message', message => {
       return
     }
     if(!message.member._roles.includes(adminToken)){
-      message.author.send(msgs.system.Perms)
+      const exampleEmbed = new Discord.MessageEmbed()
+      .setColor('#FF0000')
+      .setTitle('**Permissions**')
+      .setDescription(msgs.system.Perms)
+      .setTimestamp()
+      message.author.send(exampleEmbed);
       message.delete()
       return
     }
     const args = message.content.split(' ').slice(1);
     const kickReason = args.slice(1).join(' '); 
     if(!kickReason){
-      message.author.send(msgs.usage.kick)
+      const exampleEmbed = new Discord.MessageEmbed()
+      .setColor('#FFD700')
+      .setTitle('**USAGE**')
+      .setDescription(msgs.usage.kick)
+      .setTimestamp()
+      message.author.send(exampleEmbed);
       message.delete()
       return
     }
@@ -120,7 +176,7 @@ client.on('message', message => {
           .kick('Optional reason that will display in the audit logs')
           .then(() => {
             const exampleEmbed = new Discord.MessageEmbed()
-            .setColor('#0099ff')
+            .setColor('#32CD32')
             .setTitle('Kick')
             .setDescription("Hrac byl uspense kicknut")
             .addFields(
@@ -128,21 +184,35 @@ client.on('message', message => {
               { name: "**Duvod**", value: banReason}
             )
             .setTimestamp()
-          
-            message.channel.send(exampleEmbed);
+            message.delete()
+            message.author.send(exampleEmbed);
                     })
           .catch(err => {
-            message.author.send(msgs.system.Error);
+            const exampleEmbed = new Discord.MessageEmbed()
+            .setColor('#FFFFFF')
+            .setTitle('**ERROR**')
+            .setDescription(msgs.system.Error)
+            .setTimestamp()
+            message.author.send(exampleEmbed);
             message.delete()
-            console.error(err);
           });
       } else {
-        message.author.send(msgs.system.Error);
+        const exampleEmbed = new Discord.MessageEmbed()
+        .setColor('#FFFFFF')
+        .setTitle('**ERROR**')
+        .setDescription(msgs.system.Error)
+        .setTimestamp()
+        message.author.send(exampleEmbed);        
         message.delete()
         return
       }
     } else {
-      message.author.send(msgs.usage.kick);
+      const exampleEmbed = new Discord.MessageEmbed()
+      .setColor('#FFD700')
+      .setTitle('**USAGE**')
+      .setDescription(msgs.usage.kick)
+      .setTimestamp()
+      message.author.send(exampleEmbed);
       message.delete()
       return
     }
@@ -153,7 +223,7 @@ client.on('message', message => {
   //NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE 
 
   if (message.content.startsWith('!n')) {
-    dm(message, "ban")
+    // dm(message, "ban")
   }
   //BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN 
   //BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN 
@@ -166,7 +236,12 @@ client.on('message', message => {
       return
     }
     if(!message.member._roles.includes(adminToken)){
-      message.author.send(msgs.system.Perms)
+      const exampleEmbed = new Discord.MessageEmbed()
+      .setColor('#FF0000')
+      .setTitle('**Permissions**')
+      .setDescription(msgs.system.Perms)
+      .setTimestamp()
+      message.author.send(exampleEmbed);
       message.delete()
       return
     }
@@ -174,7 +249,12 @@ client.on('message', message => {
     const banReason = args.slice(1).join(' '); 
     if(!banReason){
       message.delete()
-      message.author.send(msgs.usage.ban)
+      const exampleEmbed = new Discord.MessageEmbed()
+      .setColor('#FFD700')
+      .setTitle('**USAGE**')
+      .setDescription(msgs.usage.ban)
+      .setTimestamp()
+      message.author.send(exampleEmbed);
       return
     }
     const user = message.mentions.users.first();
@@ -191,7 +271,7 @@ client.on('message', message => {
           })
           .then(() => {
             const exampleEmbed = new Discord.MessageEmbed()
-	.setColor('#0099ff')
+	.setColor('#32CD32')
 	.setTitle('Ban')
 	.setDescription("Uspense zabanovany hrac")
 	.addFields(
@@ -199,19 +279,34 @@ client.on('message', message => {
     { name: "**Duvod**", value: banReason}
 	)
 	.setTimestamp()
-
-  message.channel.send(exampleEmbed);
+  message.delete()
+  message.author.send(exampleEmbed);
           })
           .catch(err => {
-            message.author.send(msgs.system.Error);
+            const exampleEmbed = new Discord.MessageEmbed()
+            .setColor('#FFD700')
+            .setTitle('**USAGE**')
+            .setDescription(msgs.system.Perms)
+            .setTimestamp()
+            message.author.send(exampleEmbed);
             console.error(err);
           });
       } else {
-        message.author.send(msgs.system.Error);
+        const exampleEmbed = new Discord.MessageEmbed()
+        .setColor('#FFFFFF')
+        .setTitle('**ERROR**')
+        .setDescription(msgs.system.Error)
+        .setTimestamp()
+        message.author.send(exampleEmbed);
         message.delete()
       }
     } else {
-      message.author.send(msgs.usage.ban);
+      const exampleEmbed = new Discord.MessageEmbed()
+      .setColor('#FFD700')
+      .setTitle('**USAGE**')
+      .setDescription(msgs.usage.Ban)
+      .setTimestamp()
+      message.author.send(exampleEmbed);
       message.delete()
     }
   }
@@ -230,7 +325,12 @@ client.on('message', message => {
       return
     }
     if(!reportReason){
-      message.author.send(msgs.usage.report)
+      const exampleEmbed = new Discord.MessageEmbed()
+      .setColor('#FFD700')
+      .setTitle('**USAGE**')
+      .setDescription(msgs.usage.report)
+      .setTimestamp()
+      message.author.send(exampleEmbed);
       return
     }
     const user = message.mentions.users.first();
@@ -244,7 +344,7 @@ client.on('message', message => {
 
 
         const exampleEmbed = new Discord.MessageEmbed()
-	.setColor('#0099ff')
+	.setColor('#32CD32')
 	.setTitle('Report')
 	.setDescription("Hrac byl uspense nahlasen")
 	.addFields(
@@ -255,14 +355,20 @@ client.on('message', message => {
   message.author.send(exampleEmbed);
 
       } else {
-<<<<<<< HEAD
-        message.reply(msgs.usage.report);
-=======
-        message.author.send(msgs.system.NotFound)
->>>>>>> fd5a339648343858a1281be4943b59acce1214eb
+        const exampleEmbed = new Discord.MessageEmbed()
+        .setColor('#FF0000')
+        .setTitle('**Permissions**')
+        .setDescription(msgs.system.NotFound)
+        .setTimestamp()
+        message.author.send(exampleEmbed);
       }
     } else {
-      message.author.send(msgs.usage.report);
+      const exampleEmbed = new Discord.MessageEmbed()
+      .setColor('#FFD700')
+      .setTitle('**USAGE**')
+      .setDescription(msgs.usage.report)
+      .setTimestamp()
+      message.author.send(exampleEmbed);
     }
   }
   //REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT
@@ -273,23 +379,38 @@ client.on('message', message => {
     const args = message.content.split(' ').slice(1);
     
     if(!args){
-      message.reply(msgs.usage.clear)
-      return
+      const exampleEmbed = new Discord.MessageEmbed()
+      .setColor('#FFD700')
+      .setTitle('**USAGE**')
+      .setDescription(msgs.usage.clear)
+      .setTimestamp()
+      message.author.send(exampleEmbed);
+      return message.delete()
     }
     let intIndex = parseInt(args)
     const int2 = intIndex+1
     if(intIndex%2!=0){
-      message.reply(msgs.usage.clear)
-      return
+      const exampleEmbed = new Discord.MessageEmbed()
+      .setColor('#FFD700')
+      .setTitle('**USAGE**')
+      .setDescription(msgs.usage.clear)
+      .setTimestamp()
+      message.author.send(exampleEmbed);
+      return message.delete()
     }
     if(intIndex >= report.length){
-      message.reply(msgs.usage.clear)
-      return
+      const exampleEmbed = new Discord.MessageEmbed()
+      .setColor('#FFD700')
+      .setTitle('**USAGE**')
+      .setDescription(msgs.usage.clear)
+      .setTimestamp()
+      message.author.send(exampleEmbed);
+      return message.delete()
     }
         message.delete()
 
         const exampleEmbed = new Discord.MessageEmbed()
-	.setColor('#0099ff')
+	.setColor('#32CD32')
 	.setTitle('Report')
 	.setDescription("Report byl smazan!")
 	.addFields(
@@ -297,12 +418,12 @@ client.on('message', message => {
     { name: "**Duvod**",value: report[int2]}
 	)
   .setTimestamp()
-  console.log(report[report.length-1])
   adlog.push(message.author.username+"#"+message.author.discriminator+" REMOVED REPORT:")
   adlog.push(report[intIndex] +" "+report[int2])
   console.log("CLEARED: ["+report[intIndex] +"for: "+report[int2]+"]")
-  message.channel.send(exampleEmbed)
+  message.author.send(exampleEmbed)
   report.splice(intIndex,2)
+  message.delete()
   }
   //LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY 
   //LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY 
@@ -311,33 +432,36 @@ client.on('message', message => {
   if(message.content.startsWith('!log')) {
     let tmpBoolean = false
     if(!message.member._roles.includes(adminToken)){
-      tmpBoolean = true
+      tmpBoolean = true 
     }
     if(!message.member._roles.includes(modToken)){
       if(tmpBoolean){
-        message.reply(msgs.system.Perms)
+        const exampleEmbed = new Discord.MessageEmbed()
+        .setColor('#FF0000')
+        .setTitle('**Permissions**')
+        .setDescription(msgs.system.Perms)
+        .setTimestamp()
+        message.author.send(exampleEmbed);
+        message.delete()
         return
       }
     }
 
-<<<<<<< HEAD
-    let reportiky
-=======
->>>>>>> fd5a339648343858a1281be4943b59acce1214eb
     if(report.length == 0){
       reportiky = msgs.system.NoneReport
     }else{
       reportiky = report
     }
     const exampleEmbed = new Discord.MessageEmbed()
-    .setColor('#0099ff')
+    .setColor('#32CD32')
     .setTitle('**Report Log**')
     .setThumbnail()
     .addFields(
         {name:"**Reportovani hraci**", value: reportiky}, 
     )
     .setTimestamp()
-  message.channel.send(exampleEmbed);
+    message.delete()
+  message.author.send(exampleEmbed);
   }
   //ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT  
   //ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT  
@@ -353,11 +477,23 @@ client.on('message', message => {
     }
     if(!message.member._roles.includes(adminToken)){
       message.delete()
-      return message.author.send(msgs.system.Perms)
+      const exampleEmbed = new Discord.MessageEmbed()
+      .setColor('#FF0000')
+      .setTitle('**Permissions**')
+      .setDescription(msgs.system.Perms)
+      .setTimestamp()
+      message.author.send(exampleEmbed);
+      return 
     }
     if(control != 2){
       message.delete()
-      return message.author.send(msgs.usage.ann)
+      const exampleEmbed = new Discord.MessageEmbed()
+      .setColor('#FFD700')
+      .setTitle('**USAGE**')
+      .setDescription(msgs.usage.ann)
+      .setTimestamp()
+      message.author.send(exampleEmbed);
+      return 
     }
     const args = message.content.split("|").slice(0)
     const header = message.content.split("|")[1]
@@ -366,7 +502,7 @@ client.on('message', message => {
       return message.author.send(msgs.usage.ann)
     }
     const exampleEmbed = new Discord.MessageEmbed()
-    .setColor('#0099ff')
+    .setColor('#32CD32')
     .setTitle('**'+header+'**')
     .setDescription(text)
     .setTimestamp()
@@ -382,20 +518,25 @@ client.on('message', message => {
       message.delete()
       return
     }
-    if(!message.member._roles.includes(adminToken)){
-      message.reply(msgs.system.Perms)
-      return
+    if(!message.member._roles.includes(highestAdminToken)){
+      const exampleEmbed = new Discord.MessageEmbed()
+      .setColor('#FF0000')
+      .setTitle('**Permissions**')
+      .setDescription(msgs.system.Perms)
+      .setTimestamp()
+      message.author.send(exampleEmbed);
+      return message.delete()
     }
     let bany
     let kicky
     let reporty 
     //CHECK IF THERE ARE ANY BANNS OR KICKS
-    if(banns.length == 0){bany = "Zatim nebyli udeleny bany"}else{bany = banns}
-    if(kicks.length == 0){kicky = "Zatim nebyli udeleny  kicky"}else{kicky = kicks}
-    if(report.length==0){reporty = "Zatim nebyli udeleny reporty"}else{reporty = report}
+    if(banns.length == 0){bany = msgs.errors.no.banns}else{bany = banns}
+    if(kicks.length == 0){kicky = msgs.errors.no.kicks}else{kicky = kicks}
+    if(report.length==0){reporty = msgs.errors.no.reports}else{reporty = report}
     
     const exampleEmbed = new Discord.MessageEmbed()
-    .setColor('#0099ff')
+    .setColor('#32CD32')
     .setTitle('**Admin LOG**')
     .setThumbnail()
     .addFields(
@@ -404,8 +545,8 @@ client.on('message', message => {
         {name:"**Reporty**",value: reporty}
     )
     .setTimestamp()
-  
-  message.channel.send(exampleEmbed);
+  message.delete()
+  message.author.send(exampleEmbed);
     
   }
   if(message.content.startsWith('!serverlog')) {
@@ -413,22 +554,28 @@ client.on('message', message => {
       message.delete()
       return
     }
-    if(!message.member._roles.includes(adminToken)){
-      message.reply(msgs.system.Perms)
+    if(!message.member._roles.includes(ownerToken)){
+      const exampleEmbed = new Discord.MessageEmbed()
+      .setColor('#FF0000')
+      .setTitle('**Permissions**')
+      .setDescription(msgs.system.Perms)
+      .setTimestamp()
+      message.author.send(exampleEmbed);
+      message.delete()
       return
     }
     //CHECK IF THERE ARE ANY BANNS OR KICKS
     let log3
     if(adlog.length == 0){log3 = "Zadna aktivita"}else{log3 = adlog}
     const exampleEmbed = new Discord.MessageEmbed()
-    .setColor('#0099ff')
+    .setColor('#32CD32')
     .setTitle('**Server LOG**')
     .setThumbnail()
     .addFields(
         {name:"**LOG**",value: log3}
     )
     .setTimestamp()
-  message.channel.send(exampleEmbed);
+  message.author.send(exampleEmbed);
   }
 });
 
@@ -465,5 +612,7 @@ function dm(message, type){
     message.reply(msgs.usage.notice);
   }
 }
+
+
 
 client.login(config.key)

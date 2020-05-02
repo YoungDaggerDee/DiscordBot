@@ -3,11 +3,13 @@
     "servername":"servername",
     "bot-name":"bot",
     "version":"1.0.4",
-    "status":"beta",
+    "stage":"Alpha",
     "key": "NjMzOTI5ODcwNjU2NjY3Njc4.XqXPLQ.4TxS52XyR9L2mxmq422jwXIbRJI",
     "tokens": {
         "admin": "704363882348806174",
-        "mod": "705844695745691719"
+        "mod": "705844695745691719",
+        "powerAdmin":"706280624763306045",
+        "owner":"706281913362415669"
     },
     "functions": [
         "kick",
@@ -22,6 +24,9 @@
     "admins": [
         "704427118599340036",
         "433324495793553409"
+    ],
+    "mods":[
+
     ],
     "rooms": {
         "report":"705916566021079060",
