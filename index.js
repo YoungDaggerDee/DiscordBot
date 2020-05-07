@@ -18,20 +18,35 @@ const adlog = []
 const botName = config["bot-name"]
 
 //TOKENS
-const adminToken = config.tokens.admin
-const modToken = config.tokens.mod
-const highestAdminToken = config.tokens.powerAdmin
-const ownerToken = config.tokens.owner
+const tokens = {
+  admin: config.tokens.admin,
+  mod: config.tokens.mod,
+  highestAdmin: config.tokens.powerAdmin,
+  owner: config.tokens.admin
+}
+// const adminToken = config.tokens.admin
+// const modToken = config.tokens.mod
+// const highestAdminToken = config.tokens.powerAdmin
+// const ownerToken = config.tokens.owner
 
 //FUNCTION ON MESSAGE 
 client.on('ready', () => {
     for(let i=0;i<10;i++){console.log()}
-    console.log("You're running Bot version: ["+config.version+"] "+config.stage)
+    console.log('\x1b[36m%s\x1b[0m',`BOT INFO`)
+    console.log()
+    console.log("You're running Bot version: ["+config.version+" ("+config.build+")] "+config.stage)
+    console.log(`Name: ${client.user.tag}`)
     console.log(`Logged in as ${client.user.tag}!`)
-
+    console.log(`Bot id: ${client.user.id}`)
+    console.log(``)
+    console.log('\x1b[32m%s\x1b[0m',`Status: Running`)
 });
   //ON MESSAGE SENT
 client.on('message', msg => {
+  let random = Math.floor(Math.random()*emoji.length)
+  for(let i=0;i<random;i++){
+    msg.react(emoji[Math.floor(Math.random()*emoji.length)])
+  }
   //REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES 
   //REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES 
   //REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES 
@@ -48,7 +63,8 @@ client.on('message', msg => {
   
   //RANDOM EMOJI COMMAND
   if (msg.content === '!emoji'){
-      msg.reply(emoji[Math.floor(Math.random()*emoji.length)])
+      msg.channel.send(emoji[Math.floor(Math.random()*emoji.length)])
+      msg.delete()
   }
   //RANDOM HENTAI COMMAND
   if(msg.content.startsWith("!hentai")){
@@ -85,7 +101,7 @@ client.on('message', message => {
   if(message.content.startsWith("!cc")){
     const args = message.content.split(' ').slice(1); 
     const amount = args.join(' '); 
-    // if(!message.member._roles.includes(adminToken)){
+    // if(!message.member._roles.includes(tokens.admin)){
     //   const exampleEmbed = new Discord.MessageEmbed()
     //   .setColor('#FF0000')
     //   .setTitle('**Permissions**')
@@ -151,7 +167,7 @@ client.on('message', message => {
       message.delete()
       return
     }
-    if(!message.member._roles.includes(adminToken)){
+    if(!message.member._roles.includes(tokens.admin)){
       const exampleEmbed = new Discord.MessageEmbed()
       .setColor('#FF0000')
       .setTitle('**Permissions**')
@@ -243,7 +259,7 @@ client.on('message', message => {
       message.delete()
       return
     }
-    if(!message.member._roles.includes(adminToken)){
+    if(!message.member._roles.includes(tokens.admin)){
       const exampleEmbed = new Discord.MessageEmbed()
       .setColor('#FF0000')
       .setTitle('**Permissions**')
@@ -439,10 +455,10 @@ client.on('message', message => {
   //LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY 
   if(message.content.startsWith('!log')) {
     let tmpBoolean = false
-    if(!message.member._roles.includes(adminToken)){
+    if(!message.member._roles.includes(tokens.admin)){
       tmpBoolean = true 
     }
-    if(!message.member._roles.includes(modToken)){
+    if(!message.member._roles.includes(tokens.mod)){
       if(tmpBoolean){
         const exampleEmbed = new Discord.MessageEmbed()
         .setColor('#FF0000')
@@ -483,7 +499,7 @@ client.on('message', message => {
         control++
       }
     }
-    if(!message.member._roles.includes(adminToken)){
+    if(!message.member._roles.includes(tokens.admin)){
       message.delete()
       const exampleEmbed = new Discord.MessageEmbed()
       .setColor('#FF0000')
@@ -526,7 +542,7 @@ client.on('message', message => {
       message.delete()
       return
     }
-    if(!message.member._roles.includes(highestAdminToken)){
+    if(!message.member._roles.includes(tokens.highestAdmin)){
       const exampleEmbed = new Discord.MessageEmbed()
       .setColor('#FF0000')
       .setTitle('**Permissions**')
