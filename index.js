@@ -23,6 +23,7 @@ const modToken = config.tokens.mod
 const highestAdminToken = config.tokens.powerAdmin
 const ownerToken = config.tokens.owner
 
+//FUNCTION ON MESSAGE 
 client.on('ready', () => {
     for(let i=0;i<10;i++){console.log()}
     console.log("You're running Bot version: ["+config.version+"] "+config.stage)
@@ -31,6 +32,17 @@ client.on('ready', () => {
 });
   //ON MESSAGE SENT
 client.on('message', msg => {
+  //REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES 
+  //REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES 
+  //REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES 
+  //REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES 
+  if(msg.channel.id == config.rooms.report){
+    console.log(!config.tokens.admin == msg.author.id )
+    if(!msg.author.id == config.tokens.admin){
+      message.delete()
+      return
+    }
+  }
   let currentTime = d.getTime()
   messages.push(`AUTHOR: ${msg.author.username} | MESSAGE: ${msg.content} | TIME: ${currentTime}`)
   
@@ -73,17 +85,16 @@ client.on('message', message => {
   if(message.content.startsWith("!cc")){
     const args = message.content.split(' ').slice(1); 
     const amount = args.join(' '); 
-    console.log(message.channel.name)
-    if(!message.member._roles.includes(adminToken)){
-      const exampleEmbed = new Discord.MessageEmbed()
-      .setColor('#FF0000')
-      .setTitle('**Permissions**')
-      .setDescription(msgs.system.Perms)
-      .setTimestamp()
-      message.author.send(exampleEmbed);
-      message.delete()
-      return
-    }
+    // if(!message.member._roles.includes(adminToken)){
+    //   const exampleEmbed = new Discord.MessageEmbed()
+    //   .setColor('#FF0000')
+    //   .setTitle('**Permissions**')
+    //   .setDescription(msgs.system.Perms)
+    //   .setTimestamp()
+    //   message.author.send(exampleEmbed);
+    //   message.delete()
+    //   return
+    // }
     const exampleEmbed = new Discord.MessageEmbed()
     .setColor('#FFD700')
     .setTitle('**USAGE**')
@@ -93,12 +104,10 @@ client.on('message', message => {
     if (!amount) {
       message.delete()
       return message.author.send(exampleEmbed)}
-
     if (isNaN(amount)) {
       message.delete()
       return message.author.send(exampleEmbed)
     }
-
     if (amount > 300) {
       const exampleEmbed = new Discord.MessageEmbed()
       .setColor('#FFFFFF')
@@ -130,9 +139,8 @@ client.on('message', message => {
     message.channel.bulkDelete(messages 
     )});
     }
-    remove()
     message.delete()
-    
+    remove()
 }
   //KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK 
   //KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK 
@@ -223,7 +231,7 @@ client.on('message', message => {
   //NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE 
 
   if (message.content.startsWith('!n')) {
-    // dm(message, "ban")
+    dm(message, ":smile:")
   }
   //BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN 
   //BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN 
@@ -447,8 +455,8 @@ client.on('message', message => {
       }
     }
 
-    if(report.length == 0){
-      reportiky = msgs.system.NoneReport
+    if(!report.length){
+      reportiky = msgs.errors.noReports
     }else{
       reportiky = report
     }
@@ -575,6 +583,7 @@ client.on('message', message => {
         {name:"**LOG**",value: log3}
     )
     .setTimestamp()
+  message.delete()
   message.author.send(exampleEmbed);
   }
 });
@@ -587,8 +596,9 @@ function dm(message, type){
   let tmpMessage
   const args = message.content.split(' ').slice(1);
   const nMessage = args.slice(1).join(' '); 
+  message.delete()
   if(!nMessage){
-    message.reply(msgs.usage.notice)
+    message.author.send(msgs.usage.notice)
     return
   }
   if(type == "ban"){
@@ -606,10 +616,10 @@ function dm(message, type){
     if (member) {
       user.send(tmpMessage)
     } else {
-      message.reply(msgs.system.Error);
+      message.author.send(msgs.system.Error);
     }
   } else {
-    message.reply(msgs.usage.notice);
+    message.author.send(msgs.usage.notice);
   }
 }
 

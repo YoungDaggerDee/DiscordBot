@@ -23,6 +23,7 @@
             "more":"You can't delete more than 300 messages at once!",
             "less":"You can't delete less than 1 messages!"
         },
+        "noReports":"**No reports were found**",
         "no":{
             "banns":"No bannes yet!",
             "kicks":"No kicks yet!",
