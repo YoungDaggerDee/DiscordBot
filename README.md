@@ -1,13 +1,29 @@
 # DiscordBot
-Version: 0.0.1 (Closed-Alpha)
-This is javascript discord bot made by Daniel Seiner
+Version: 1.0.5 (Closed-Alpha)
 
+# Requirements
+    1) Installed NodeJS
+    2) Bot must have server-admin role or atleast (ban,kick,delete_messages)
 
 # Setup
- - Still in progress
- 
+    1) config.json: Setup rooms
+    2) config.json: Setup roles
+    3) Enjoy your bot ;)
+
 Functions:
- - 
+ - report:
+    !report @nickname @reason
+    !clear @id_reportu
+ - kick:
+    !kick @nickname @reason
+ - ban:
+    !ban @nickname @reason
+ - log:
+    !log
+- serverlog:
+    !serverlog
+- clear chat:
+    !cc @how_manny_messages
 
 Roles:
  - 
