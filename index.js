@@ -16,7 +16,7 @@ const banns = []
 const kicks = []
 const adlog = []
 const botName = config["bot-name"]
-
+let spamReact = false
 //TOKENS
 const tokens = {
   admin: config.tokens.admin,
@@ -24,6 +24,7 @@ const tokens = {
   highestAdmin: config.tokens.powerAdmin,
   owner: config.tokens.admin
 }
+const symbol = config.symbol
 // const adminToken = config.tokens.admin
 // const modToken = config.tokens.mod
 // const highestAdminToken = config.tokens.powerAdmin
@@ -43,9 +44,15 @@ client.on('ready', () => {
 });
   //ON MESSAGE SENT
 client.on('message', msg => {
-  let random = Math.floor(Math.random()*emoji.length)
-  for(let i=0;i<random;i++){
-    msg.react(emoji[Math.floor(Math.random()*emoji.length)])
+  //SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS 
+  //SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS 
+  //SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS 
+  //SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS SPAM REACTS 
+  if(spamReact){
+    let random = Math.floor(Math.random()*emoji.length)
+    for(let i=0;i<random;i++){
+      msg.react(emoji[Math.floor(Math.random()*26)+1])
+    }
   }
   //REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES 
   //REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES REMOVE NORMAL MESSAGES 
@@ -61,33 +68,64 @@ client.on('message', msg => {
   let currentTime = d.getTime()
   messages.push(`AUTHOR: ${msg.author.username} | MESSAGE: ${msg.content} | TIME: ${currentTime}`)
   
-  //RANDOM EMOJI COMMAND
-  if (msg.content === '!emoji'){
+  //RANDOM REACT RANDOM REACT RANDOM REACT RANDOM REACT RANDOM REACT RANDOM REACT RANDOM REACT RANDOM REACT RANDOM REACT 
+  //RANDOM REACT RANDOM REACT RANDOM REACT RANDOM REACT RANDOM REACT RANDOM REACT RANDOM REACT RANDOM REACT RANDOM REACT 
+  //RANDOM REACT RANDOM REACT RANDOM REACT RANDOM REACT RANDOM REACT RANDOM REACT RANDOM REACT RANDOM REACT RANDOM REACT 
+  //RANDOM REACT RANDOM REACT RANDOM REACT RANDOM REACT RANDOM REACT RANDOM REACT RANDOM REACT RANDOM REACT RANDOM REACT 
+  // if(msg.content === symbol+'spam'){
+  //   let spamColor = ''
+  //   let spamMessage = ""
+  //   if(spamReact){
+  //     spamReact = false
+  //     spamColor = '#FFD700'
+  //     spamMessage = "Spam Mode OFF"
+  //   }else{
+  //     spamReact = true
+  //     spamMessage = "Spam Mode ON"
+  //     spamColor = '#32CD32'
+  //   }
+  //   msg.delete()
+  //   const exampleEmbed = new Discord.MessageEmbed()
+  //   .setColor(spamColor)
+  //   .setTitle('REACT-SPAM')
+  //   .setDescription(spamMessage)
+  //   .setTimestamp()
+  //   msg.author.send(exampleEmbed)
+  // }
+
+  //RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI 
+  //RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI 
+  //RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI 
+  //RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI RANDOM EMOJI 
+  if (msg.content === symbol+'emoji'){
       msg.channel.send(emoji[Math.floor(Math.random()*emoji.length)])
       msg.delete()
   }
-  //RANDOM HENTAI COMMAND
-  if(msg.content.startsWith("!hentai")){
-    if(msg.channel.id != "704731841047035904"){
-      msg.delete()
-      return
-    }
-    console.log(msg)
-    let random = Math.floor(Math.random() * 700 ) +1
-    const exampleEmbed = new Discord.MessageEmbed()
-    .setColor('#0099ff')
-    .setTitle('Hentai')
-    .setDescription("preji ti hezku honbu")
-    .setImage("https://disco.scrolller.com/media/e"+random+".jpg")
-    .setTimestamp()
-    setInterval(()=>{
-      let random = Math.floor(Math.random() * 700 ) +1
-      const exampleEmbed = new Discord.MessageEmbed()
-      .setColor('#32CD32')
-      .setImage("https://disco.scrolller.com/media/e"+random+".jpg")
-      msg.channel.send(exampleEmbed)
-    },1000)
-  }
+  //RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI 
+  //RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI 
+  //RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI 
+  //RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI RANDOM HENTAI 
+  // if(msg.content.startsWith(symbol+"hentai")){
+  //   if(msg.channel.id != "704731841047035904"){
+  //     msg.delete()
+  //     return
+  //   }
+  //   console.log(msg)
+  //   let random = Math.floor(Math.random() * 700 ) +1
+  //   const exampleEmbed = new Discord.MessageEmbed()
+  //   .setColor('#0099ff')
+  //   .setTitle('Hentai')
+  //   .setDescription("preji ti hezku honbu")
+  //   .setImage("https://disco.scrolller.com/media/e"+random+".jpg")
+  //   .setTimestamp()
+  //   setInterval(()=>{
+  //     let random = Math.floor(Math.random() * 700 ) +1
+  //     const exampleEmbed = new Discord.MessageEmbed()
+  //     .setColor('#32CD32')
+  //     .setImage("https://disco.scrolller.com/media/e"+random+".jpg")
+  //     msg.channel.send(exampleEmbed)
+  //   },1000)
+  // }
 });
 
 //ADMIN COMMANDS
@@ -98,7 +136,7 @@ client.on('message', message => {
   //CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT 
   //CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT 
   //CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT 
-  if(message.content.startsWith("!cc")){
+  if(message.content.startsWith(symbol+"cc")){
     const args = message.content.split(' ').slice(1); 
     const amount = args.join(' '); 
     // if(!message.member._roles.includes(tokens.admin)){
@@ -162,7 +200,7 @@ client.on('message', message => {
   //KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK 
   //KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK 
   //KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK KICK 
-  if (message.content.startsWith('!kick')) {
+  if (message.content.startsWith(symbol+'kick')) {
     if(message.channel.id != config.rooms.admin){
       message.delete()
       return
@@ -246,7 +284,7 @@ client.on('message', message => {
   //NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE 
   //NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE 
 
-  if (message.content.startsWith('!n')) {
+  if (message.content.startsWith(symbol+'n')) {
     dm(message, ":smile:")
   }
   //BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN BAN 
@@ -339,7 +377,7 @@ client.on('message', message => {
   //REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT 
   //REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT REPORT 
 
-  if (message.content.startsWith('!report')) {
+  if (message.content.startsWith(symbol+'report')) {
     message.delete()
     const args = message.content.split(' ').slice(1);
     const reportReason = args.slice(1).join(' '); 
@@ -399,7 +437,7 @@ client.on('message', message => {
   //REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT
   //REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT
   //REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT REMOVE REPORT
-  if (message.content.startsWith('!clear')) {
+  if (message.content.startsWith(symbol+'clear')) {
     const args = message.content.split(' ').slice(1);
     
     if(!args){
@@ -453,7 +491,7 @@ client.on('message', message => {
   //LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY 
   //LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY 
   //LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY LOG REPORTY 
-  if(message.content.startsWith('!log')) {
+  if(message.content.startsWith(symbol+'log')) {
     let tmpBoolean = false
     if(!message.member._roles.includes(tokens.admin)){
       tmpBoolean = true 
@@ -491,7 +529,7 @@ client.on('message', message => {
   //ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT  
   //ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT  
   //ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT ANNOUNCEMENT  
-  if(message.content.startsWith('!ann')){
+  if(message.content.startsWith(symbol+'ann')){
     let tmpMessage
     let control = 0
     for(let i=0;i<message.content.length;i++){
@@ -537,7 +575,7 @@ client.on('message', message => {
   //ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG 
   //ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG 
   //ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG 
-  if(message.content.startsWith('!adminlog')) {
+  if(message.content.startsWith(symbol+'adminlog')) {
     if(message.channel.id != config.rooms.admin){
       message.delete()
       return
@@ -573,7 +611,7 @@ client.on('message', message => {
   message.author.send(exampleEmbed);
     
   }
-  if(message.content.startsWith('!serverlog')) {
+  if(message.content.startsWith(symbol+'serverlog')) {
     if(message.channel.id != config.rooms.admin){
       message.delete()
       return

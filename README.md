@@ -8,9 +8,17 @@ Version: 1.0.5 (Closed-Alpha)
 # Setup
     1) config.json: Setup rooms
     2) config.json: Setup roles
-    3) Enjoy your bot ;)
+# FOR CUSTOM EMOJI 
+    1) Open emoji.json
+    2) Insert your custom emoji id ->
+        To get custom emoji id: type name of the emoji and before it \ just like this: ( \:smile: ),
+        Then just copy the number, you will get something like this ( <:LULW:704025555359629392> ),
+        After that just paste it to emoji.json "704025555359629392"
+# FOR BASED EMOJI
+    1) Open emoji.json
+    2) Insert emoji code like this: ":smile:"
 
-Functions:
+# Functions:
  - report:
     !report @nickname @reason
     !clear @id_reportu
@@ -26,9 +34,12 @@ Functions:
     !cc @how_manny_messages
 
 Roles:
- - 
+ - owner
+ - highest_admin
+ - admin
+ - moderator
 
 Required Stuff:
- - 
+ - owner
+ - admin
 
-Javascript discord bot
