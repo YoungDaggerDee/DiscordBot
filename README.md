@@ -20,26 +20,26 @@ Version: 1.0.5 (Closed-Alpha)
 
 # Functions:
  - report:
-    !report @nickname @reason
-    !clear @id_reportu
+    + !report @nickname @reason
+    + !clear @id_reportu
  - kick:
-    !kick @nickname @reason
+    + !kick @nickname @reason
  - ban:
-    !ban @nickname @reason
+    + !ban @nickname @reason
  - log:
-    !log
+    + !log
 - serverlog:
-    !serverlog
+    + !serverlog
 - clear chat:
-    !cc @how_manny_messages
+    + !cc @how_manny_messages
 
-Roles:
+# Roles:
  - owner
  - highest_admin
  - admin
  - moderator
 
-Required Stuff:
+# Required Stuff:
  - owner
  - admin
 
