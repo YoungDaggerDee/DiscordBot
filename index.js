@@ -40,6 +40,7 @@ client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`)
     console.log(`Bot id: ${client.user.id}`)
     console.log(``)
+    console.log('\x1b[32m%s\x1b[0m',`${d}`)
     console.log('\x1b[32m%s\x1b[0m',`Status: Running`)
 });
   //ON MESSAGE SENT
@@ -132,7 +133,7 @@ client.on('message', msg => {
 client.on('message', message => {
   if (!message.guild) return;
   
-  //CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT 
+  //`CLEAR` CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT 
   //CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT 
   //CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT 
   //CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT CLEAR CHAT 
@@ -176,7 +177,8 @@ client.on('message', message => {
       .setTitle('**ERROR**')
       .setDescription(msgs.errors.cc.less)
       .setTimestamp()
-      return message.author.send(exampleEmbed)}
+      return message.author.send(exampleEmbed)
+    }
     const exampleEmbed1 = new Discord.MessageEmbed()
     .setColor('#32CD32')
     .setTitle('Message delete')
@@ -419,7 +421,7 @@ client.on('message', message => {
       } else {
         const exampleEmbed = new Discord.MessageEmbed()
         .setColor('#FF0000')
-        .setTitle('**Permissions**')
+        .setTitle(`**${msgs.error_title.permission}**`)
         .setDescription(msgs.system.NotFound)
         .setTimestamp()
         message.author.send(exampleEmbed);
@@ -500,7 +502,7 @@ client.on('message', message => {
       if(tmpBoolean){
         const exampleEmbed = new Discord.MessageEmbed()
         .setColor('#FF0000')
-        .setTitle('**Permissions**')
+        .setTitle(`**${msgs.error_title.permission}**`)
         .setDescription(msgs.system.Perms)
         .setTimestamp()
         message.author.send(exampleEmbed);
@@ -541,7 +543,7 @@ client.on('message', message => {
       message.delete()
       const exampleEmbed = new Discord.MessageEmbed()
       .setColor('#FF0000')
-      .setTitle('**Permissions**')
+      .setTitle(`**${msgs.error_title.permission}**`)
       .setDescription(msgs.system.Perms)
       .setTimestamp()
       message.author.send(exampleEmbed);
@@ -571,6 +573,34 @@ client.on('message', message => {
     message.channel.send(exampleEmbed);
     message.delete()
   }
+  //SHOW RUNNING CONFIG SHOW RUNNING CONFIG SHOW RUNNING CONFIG SHOW RUNNING CONFIG SHOW RUNNING CONFIG 
+  //SHOW RUNNING CONFIG SHOW RUNNING CONFIG SHOW RUNNING CONFIG SHOW RUNNING CONFIG SHOW RUNNING CONFIG 
+  //SHOW RUNNING CONFIG SHOW RUNNING CONFIG SHOW RUNNING CONFIG SHOW RUNNING CONFIG SHOW RUNNING CONFIG 
+  //SHOW RUNNING CONFIG SHOW RUNNING CONFIG SHOW RUNNING CONFIG SHOW RUNNING CONFIG SHOW RUNNING CONFIG 
+  if(message.content.startsWith(symbol+"sh")){
+    if(!message.member._roles.includes(tokens.owner)){
+      const exampleEmbed = new Discord.MessageEmbed()
+      .setColor('#FF0000')
+      .setTitle(`**${msgs.error_title.permission}**`)
+      .setDescription(msgs.system.Perms)
+      .setTimestamp()
+      message.author.send(exampleEmbed);
+      message.delete()
+      console.log(message.author.username+ 'tried to use command `sh`!')
+      return 
+    }
+    const exampleEmbed = new Discord.MessageEmbed()
+    .setColor('#32CD32')
+    .setTitle('SHOW RUNNING CONFIG')
+    .setDescription(msgs.system.openConsole)
+    .setTimestamp()
+    message.author.send(exampleEmbed);
+    message.delete()
+    for(let i=0;i<10;i++)
+    console.log("")
+    console.log('\x1b[36m%s\x1b[0m',`SHOW RUNNING CONFIG`)
+    console.log(config)
+  }  
   //ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG 
   //ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG 
   //ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG ADMIN LOG 
@@ -583,7 +613,7 @@ client.on('message', message => {
     if(!message.member._roles.includes(tokens.highestAdmin)){
       const exampleEmbed = new Discord.MessageEmbed()
       .setColor('#FF0000')
-      .setTitle('**Permissions**')
+      .setTitle(`**${msgs.error_title.permission}**`)
       .setDescription(msgs.system.Perms)
       .setTimestamp()
       message.author.send(exampleEmbed);
@@ -602,9 +632,9 @@ client.on('message', message => {
     .setTitle('**Admin LOG**')
     .setThumbnail()
     .addFields(
-        {name:"**Bany**", value: bany},
-        {name:"**Kicky**",value: kicky},
-        {name:"**Reporty**",value: reporty}
+        {name:`**${msgs.names.ban}**`, value: bany},
+        {name:`**${msgs.names.kick}**`,value: kicky},
+        {name:`**${msgs.names.report}**`,value: reporty}
     )
     .setTimestamp()
   message.delete()
@@ -619,7 +649,7 @@ client.on('message', message => {
     if(!message.member._roles.includes(ownerToken)){
       const exampleEmbed = new Discord.MessageEmbed()
       .setColor('#FF0000')
-      .setTitle('**Permissions**')
+      .setTitle(`**${msgs.error_title.permission}**`)
       .setDescription(msgs.system.Perms)
       .setTimestamp()
       message.author.send(exampleEmbed);
@@ -676,7 +706,6 @@ function dm(message, type){
     message.author.send(msgs.usage.notice);
   }
 }
-
 
 
 client.login(config.key)

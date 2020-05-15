@@ -6,7 +6,16 @@
         "Report":"Was report",
         "Perms":"You don't have permission for this command",
         "Error":"Unexpected error!",
-        "NotFound":"Player wasn't found"
+        "NotFound":"Player wasn't found",
+        "openConsole":"Check in **console**!"
+    },
+    "names":{
+        "ban":"Bany",
+        "kick":"Kicky",
+        "report":"Reporty"
+    },
+    "error_title":{
+      "permission":"You don't have permissions"  
     },
     "usage" : {
         "kick":"Please use !kick <user> <reason>",
